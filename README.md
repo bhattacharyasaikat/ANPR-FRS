@@ -1,4 +1,4 @@
-#Automatic Number Plate Detection and Face Detection System
+#Automatic Number Plate Detection and Face Recognition System
 
 This project is an implementation of an Automatic Number Plate Detection and Face Detection System using Python and OpenCV. The aim of this project is to develop a system that can automatically detect and recognize license plates and human faces in real-time using computer vision techniques, for the purpose of protecting our nation for college project.
 
