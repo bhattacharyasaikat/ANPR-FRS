@@ -36,7 +36,7 @@ print("Car Validation: ",fitness_validity)
 print("Insurance Validation: ",insurance_validity) 
 print("pollution status:",puc_validity) 
 
-
+#check if its neccassary to print these.
 print("Car Owner Name: ",owner_name) 
 print("Fuel type: ",fuel_type) 
 print("Seat capacity: ",seat)
