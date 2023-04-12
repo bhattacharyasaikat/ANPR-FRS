@@ -6,7 +6,7 @@ import requests
 import pandas as pd
 
 frameWidth = 640    
-frameHeight = 480   
+franeHeight = 480   
 
 plateCascade = cv2.CascadeClassifier("haarcascade_russian_plate_number.xml")
 face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml") 
@@ -35,12 +35,17 @@ while True:
             
 
     for (x,y,w,h) in faces:
-        cv2.rectangle(img, (x,y),(x+w,y+h),(0,255,0),3)
+        area1 = w * h
+        if area1 > minArea:
+            cv2.rectangle(img, (x,y),(x+w,y+h),(0,255,0),3)
+            imgFace = img[y:y+h,x:x+w]
+
 
     cv2.imshow('Frame',img)
     count=0
     if cv2.waitKey(10) & 0xFF==ord('q'):
-       cv2.imwrite("C:\\Users\\HP\\Desktop\\Binary Beastes\\helmet\\photos"+str(count)+".jpg",imgRoi)
+       cv2.imwrite("C:\\Users\\HP\\Desktop\\abc\\faces"+str(count)+".jpg",imgFace)
+       cv2.imwrite("C:\\Users\\HP\\Desktop\\abc\\photos"+str(count)+".jpg",imgRoi)
        count = count + 1
        cv2.rectangle(img,(0,200),(640,300),(0,255,0),cv2.FILLED)
        cv2.waitKey(200)
@@ -49,8 +54,6 @@ cap.release()
 cv2.destroyAllWindows()
 
 # -----------OCR-----------------
-
-
 
 
 class OCR:
@@ -139,10 +142,14 @@ print("Seat capacity: ",seat)
 
 
 #----------------SMS alert-------------------#
-if fitness_validity is False or fitness_validity is False or puc_validity is False:
+
+
+# sms for Insurance validation
+
+if insurance_validity is False:
    
     url = "https://sms77io.p.rapidapi.com/sms"
-    payload = "to=%2B491771783130&p=%3CREQUIRED%3E&text=Dear%20customer.%20We%20want%20to%20say%20thanks%20for%20your%20trust.%20Use%20code%20MINUS10%20for%2010%20%25%20discount%20on%20your%20next%20order!"
+    payload = "to=%2B491771783130&p=%3CREQUIRED%3E&text=e-challan%20for%20Insurance%20failure"
     headers = {
     "content-type": "application/x-www-form-urlencoded",
     "X-RapidAPI-Key": "5f6cc5ecf9mshf3a63ebe7e35fe8p10f498jsnb1fd2bf679e5",
@@ -150,6 +157,29 @@ if fitness_validity is False or fitness_validity is False or puc_validity is Fal
     }
     response = requests.request("POST", url, data=payload, headers=headers)
 
+# sms for registration validation
+if fitness_validity is False:
+   
+    url = "https://sms77io.p.rapidapi.com/sms"
+    payload = "to=%2B491771783130&p=%3CREQUIRED%3E&text=e-challan%20for%20invalid%20registration"
+    headers = {
+    "content-type": "application/x-www-form-urlencoded",
+    "X-RapidAPI-Key": "5f6cc5ecf9mshf3a63ebe7e35fe8p10f498jsnb1fd2bf679e5",
+    "X-RapidAPI-Host": "sms77io.p.rapidapi.com"
+    }
+    response = requests.request("POST", url, data=payload, headers=headers)
+
+# sms for pollution validation
+if puc_validity is False:
+   
+    url = "https://sms77io.p.rapidapi.com/sms"
+    payload = "to=%2B491771783130&p=%3CREQUIRED%3E&text=e-challan%20for%20pollution"
+    headers = {
+    "content-type": "application/x-www-form-urlencoded",
+    "X-RapidAPI-Key": "5f6cc5ecf9mshf3a63ebe7e35fe8p10f498jsnb1fd2bf679e5",
+    "X-RapidAPI-Host": "sms77io.p.rapidapi.com"
+    }
+    response = requests.request("POST", url, data=payload, headers=headers)
 # --------Saving the data-----------
 
 data ={'Owner Name' :[owner_name],
@@ -164,3 +194,4 @@ df = pd.DataFrame(data,columns=['Owner Name','Model Number','Registration Validi
 
 print("the df is",df)
 df.to_csv("test.csv")
+xt6
