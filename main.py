@@ -6,7 +6,7 @@ import requests
 import pandas as pd
 
 frameWidth = 640    
-franeHeight = 480   
+frameHeight = 480   
 
 plateCascade = cv2.CascadeClassifier("haarcascade_russian_plate_number.xml")
 face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml") 
